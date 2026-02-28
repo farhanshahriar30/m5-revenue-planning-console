@@ -1,0 +1,72 @@
+{
+  "CA_1": [
+    "FOODS_3",
+    "HOUSEHOLD_1",
+    "HOBBIES_1",
+    "FOODS_2",
+    "HOUSEHOLD_2"
+  ],
+  "CA_2": [
+    "FOODS_3",
+    "HOUSEHOLD_1",
+    "HOUSEHOLD_2",
+    "HOBBIES_1",
+    "FOODS_1"
+  ],
+  "CA_3": [
+    "FOODS_3",
+    "HOUSEHOLD_1",
+    "FOODS_2",
+    "HOBBIES_1",
+    "HOUSEHOLD_2"
+  ],
+  "CA_4": [
+    "FOODS_3",
+    "HOUSEHOLD_1",
+    "HOBBIES_1",
+    "FOODS_2",
+    "HOUSEHOLD_2"
+  ],
+  "TX_1": [
+    "FOODS_3",
+    "HOUSEHOLD_1",
+    "FOODS_2",
+    "HOBBIES_1",
+    "HOUSEHOLD_2"
+  ],
+  "TX_2": [
+    "FOODS_3",
+    "HOUSEHOLD_1",
+    "FOODS_2",
+    "HOBBIES_1",
+    "HOUSEHOLD_2"
+  ],
+  "TX_3": [
+    "FOODS_3",
+    "HOUSEHOLD_1",
+    "HOBBIES_1",
+    "FOODS_2",
+    "FOODS_1"
+  ],
+  "WI_1": [
+    "FOODS_3",
+    "HOUSEHOLD_1",
+    "HOBBIES_1",
+    "FOODS_2",
+    "FOODS_1"
+  ],
+  "WI_2": [
+    "FOODS_3",
+    "HOUSEHOLD_1",
+    "FOODS_2",
+    "HOBBIES_1",
+    "FOODS_1"
+  ],
+  "WI_3": [
+    "FOODS_3",
+    "HOUSEHOLD_1",
+    "FOODS_2",
+    "HOBBIES_1",
+    "HOUSEHOLD_2"
+  ]
+}
