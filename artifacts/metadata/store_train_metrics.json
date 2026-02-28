@@ -1,0 +1,21 @@
+{
+  "horizon_days": 28,
+  "rows_train": 18850,
+  "rows_test": 280,
+  "mae_p50": 1023.9582973258697,
+  "smape_p50": 7.240314084997819,
+  "feature_cols": [
+    "dow",
+    "week",
+    "month",
+    "year",
+    "lag_1",
+    "lag_7",
+    "lag_28",
+    "roll_mean_7",
+    "roll_std_7",
+    "roll_mean_28",
+    "roll_std_28"
+  ],
+  "split_cutoff_date": "2016-04-25"
+}
