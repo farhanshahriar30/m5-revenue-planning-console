@@ -205,3 +205,27 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# --- Data (never commit) ---
+data/raw/
+data/processed/
+
+# --- Outputs (keep small outputs only) ---
+data/outputs/*.parquet
+data/outputs/*.csv
+
+# --- Forecast exports (optional to commit; we'll decide later) ---
+forecasts/*.parquet
+forecasts/history/
+
+# --- Secrets ---
+.env
+
+# --- Artifacts that can get large ---
+artifacts/models/
+*.pkl
+*.joblib
+
+# --- OS / editor ---
+.DS_Store
+.vscode/
