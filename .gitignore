@@ -229,3 +229,5 @@ artifacts/models/
 # --- OS / editor ---
 .DS_Store
 .vscode/
+# Python version file
+.python-version
