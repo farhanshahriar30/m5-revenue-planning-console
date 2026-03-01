@@ -10,6 +10,8 @@ import streamlit as st
 
 from m5rpc.config.settings import settings
 
+st.set_page_config(page_title="M5 Revenue Planning Console", layout="wide")
+
 
 def _load_json(path):
     # Phase B: Small helper to read JSON metadata safely

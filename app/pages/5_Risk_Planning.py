@@ -10,6 +10,8 @@ import streamlit as st
 
 from m5rpc.config.settings import settings
 
+st.set_page_config(page_title="M5 Revenue Planning Console", layout="wide")
+
 
 @st.cache_data
 def load_store_forecast() -> pd.DataFrame:

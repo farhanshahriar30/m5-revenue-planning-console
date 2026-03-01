@@ -1,17 +1,25 @@
 from __future__ import annotations
 
 # Phase A: Scenario Lab goal
-# - Let users explore "what if prices change by X%" on the revenue forecast.
-# - We keep the scenario logic explicit: this is a multiplicative projection on revenue,
-#   not a full causal demand response model.
+# - Explore "what if prices change by X%" on the revenue forecast.
+# - Scenario logic is explicit: a multiplicative projection on revenue
+#   (not a causal demand response model).
+# - Use Altair for:
+#     1) locked x-axis to forecast window
+#     2) clean legend labels
+#     3) baseline (solid) vs scenario (dashed)
+#     4) consistent hover tooltips
 
 import json
 
 import pandas as pd
 import streamlit as st
+import altair as alt
 
 from m5rpc.config.settings import settings
 from m5rpc.scenarios.scenario_engine import apply_price_scenario
+
+st.set_page_config(page_title="M5 Revenue Planning Console", layout="wide")
 
 
 @st.cache_data
@@ -62,7 +70,6 @@ def main() -> None:
         )
 
     if scope == "One store + dept":
-        # Dept list comes from top_map (top 5 for this store)
         depts = top_map[str(store_id)]
         dept_id = st.selectbox("Select department", depts)
 
@@ -71,7 +78,7 @@ def main() -> None:
         "Price change (%)", min_value=-10, max_value=10, value=0, step=1
     )
 
-    # Phase G: Build the baseline series that we will adjust
+    # Phase G: Build baseline series for the selected scope
     if scope == "All stores":
         base = store_df.groupby("date", as_index=False)[["p10", "p50", "p90"]].sum()
     elif scope == "One store":
@@ -87,7 +94,7 @@ def main() -> None:
 
     # Phase H: Apply scenario projection
     result = apply_price_scenario(base, price_delta_pct=price_delta)
-    scen = result.scenario
+    scen = result.scenario.sort_values("date").reset_index(drop=True)
 
     # Phase I: KPI delta cards (P50 totals)
     s = result.summary
@@ -98,11 +105,102 @@ def main() -> None:
 
     st.subheader("Baseline vs Scenario (P10/P50/P90)")
 
-    # Phase J: Overlay chart
-    chart_df = scen[
-        ["date", "p10", "p50", "p90", "p10_scenario", "p50_scenario", "p90_scenario"]
-    ].set_index("date")
-    st.line_chart(chart_df)
+    # Phase J: Build plotting dataframe (long format)
+    # - We create six series:
+    #     P10/P50/P90 (Baseline) and P10/P50/P90 (Scenario)
+    plot_base = base.melt(
+        id_vars=["date"],
+        value_vars=["p10", "p50", "p90"],
+        var_name="q",
+        value_name="revenue",
+    )
+    plot_base["series"] = (
+        plot_base["q"].map({"p10": "P10", "p50": "P50", "p90": "P90"}) + " (Baseline)"
+    )
+    plot_base["style"] = "Baseline"
+
+    plot_scen = scen.melt(
+        id_vars=["date"],
+        value_vars=["p10_scenario", "p50_scenario", "p90_scenario"],
+        var_name="q",
+        value_name="revenue",
+    )
+    plot_scen["series"] = (
+        plot_scen["q"].map(
+            {"p10_scenario": "P10", "p50_scenario": "P50", "p90_scenario": "P90"}
+        )
+        + " (Scenario)"
+    )
+    plot_scen["style"] = "Scenario"
+
+    plot_df = pd.concat(
+        [
+            plot_base[["date", "series", "style", "revenue"]],
+            plot_scen[["date", "series", "style", "revenue"]],
+        ],
+        ignore_index=True,
+    )
+
+    x_min = plot_df["date"].min()
+    x_max = plot_df["date"].max()
+
+    # Phase K: Consistent hover
+    nearest = alt.selection_point(
+        fields=["date", "series"], nearest=True, on="mouseover", empty=False
+    )
+
+    base_chart = alt.Chart(plot_df).encode(
+        x=alt.X(
+            "date:T",
+            title=None,
+            axis=alt.Axis(format="%b %d", labelAngle=0),
+            scale=alt.Scale(domain=[x_min, x_max]),
+        ),
+        y=alt.Y(
+            "revenue:Q", title="Revenue", axis=alt.Axis(format=",.0f", tickCount=6)
+        ),
+        color=alt.Color("series:N", title=None, legend=alt.Legend(orient="top")),
+    )
+
+    # Baseline solid lines
+    baseline_lines = (
+        base_chart.transform_filter(alt.datum.style == "Baseline")
+        .mark_line()
+        .encode(
+            tooltip=[
+                alt.Tooltip("date:T", title="Date"),
+                alt.Tooltip("series:N", title="Series"),
+                alt.Tooltip("revenue:Q", title="Revenue", format=",.0f"),
+            ]
+        )
+    )
+
+    # Scenario dashed lines
+    scenario_lines = (
+        base_chart.transform_filter(alt.datum.style == "Scenario")
+        .mark_line(strokeDash=[6, 4])
+        .encode(
+            tooltip=[
+                alt.Tooltip("date:T", title="Date"),
+                alt.Tooltip("series:N", title="Series"),
+                alt.Tooltip("revenue:Q", title="Revenue", format=",.0f"),
+            ]
+        )
+    )
+
+    hover_points = base_chart.mark_point(opacity=0).add_params(nearest)
+    hover_rule = (
+        alt.Chart(plot_df)
+        .mark_rule(opacity=0.25)
+        .encode(x=alt.X("date:T", scale=alt.Scale(domain=[x_min, x_max])))
+        .transform_filter(nearest)
+    )
+
+    chart = (baseline_lines + scenario_lines + hover_rule + hover_points).properties(
+        height=360
+    )
+
+    st.altair_chart(chart, use_container_width=True)
 
     st.caption(
         "Scenario is a revenue multiplier on the baseline forecast (planning projection)."
