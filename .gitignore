@@ -231,3 +231,8 @@ artifacts/models/
 .vscode/
 # Python version file
 .python-version
+
+# --- Allow small deploy artifacts (Streamlit Cloud needs these) ---
+!data/outputs/actuals_allstores_last_90.parquet
+!forecasts/store_latest.parquet
+!forecasts/store_dept_top5_latest.parquet
