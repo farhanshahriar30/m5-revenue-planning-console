@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import bootstrap
+
+bootstrap.add_src_to_path()
 # Phase A: Model Health goal
 # - Build trust by showing performance metrics and basic training metadata.
 # - Keep the UI clean: show key KPIs upfront, and hide full JSON under expanders.

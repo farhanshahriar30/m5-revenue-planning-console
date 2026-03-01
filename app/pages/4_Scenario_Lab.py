@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import bootstrap
+
+bootstrap.add_src_to_path()
 # Phase A: Scenario Lab goal
 # - Explore "what if prices change by X%" on the revenue forecast.
 # - Scenario logic is explicit: a multiplicative projection on revenue

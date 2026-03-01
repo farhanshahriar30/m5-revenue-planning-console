@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import bootstrap
+
+bootstrap.add_src_to_path()
+
 # Phase A: Streamlit entrypoint
 # - Keeps routing simple: Streamlit will auto-load files in app/pages for multi-page apps.
 # - This file is mainly for global config and a small landing page.

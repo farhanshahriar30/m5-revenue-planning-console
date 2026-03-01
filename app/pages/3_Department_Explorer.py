@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import bootstrap
+
+bootstrap.add_src_to_path()
 # Phase A: Department Explorer goal
 # - Drill down from store -> top 5 departments (historically highest revenue).
 # - Show 28-day forecast bands for a selected store+dept.

@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import bootstrap
+
+bootstrap.add_src_to_path()
 # Phase A: Risk & Planning goal
 # - Convert uncertainty bands into actionable planning metrics.
 # - "Revenue at risk" helps conservative planning (how much could we lose vs expected).

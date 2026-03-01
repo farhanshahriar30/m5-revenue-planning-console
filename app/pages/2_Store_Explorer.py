@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import bootstrap
+
+bootstrap.add_src_to_path()
 # Phase A: Store Explorer goal
 # - Let users drill into one store's 28-day forecast with uncertainty bands.
 # - Improve chart quality vs st.line_chart:

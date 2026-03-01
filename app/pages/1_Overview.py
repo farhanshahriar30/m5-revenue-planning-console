@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import bootstrap
+
+bootstrap.add_src_to_path()
 # Phase A: Overview page goal
 # - Provide an executive summary of total revenue for:
 #     1) recent actual history (last 90 days, deployable file)
