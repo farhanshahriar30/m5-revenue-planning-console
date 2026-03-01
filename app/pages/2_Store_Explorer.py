@@ -98,6 +98,12 @@ def main() -> None:
     chart = (lines + hover_rule + hover_points).properties(height=360)
     st.altair_chart(chart, use_container_width=True)
 
+    st.caption(
+        "This chart shows the expected revenue for the selected store over the next 28 days. "
+        "P50 is the main forecast, while P10 and P90 show a realistic low and high range. "
+        "Use it to see how the store may rise and fall day-to-day and how much uncertainty there is."
+    )
+
     # Phase G: Table + download (clean date display)
     st.subheader("28-day forecast table")
     table_df = s.copy()

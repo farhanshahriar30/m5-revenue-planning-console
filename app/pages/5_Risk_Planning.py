@@ -71,6 +71,13 @@ def main() -> None:
     st.subheader("Store planning table (28-day totals)")
     st.dataframe(view, width="stretch")
 
+    st.caption(
+        "This table helps you plan with uncertainty in mind. "
+        "‘Planned revenue’ is what you plan for. "
+        "‘Revenue at risk’ shows how much could be lost in a worse case. "
+        "‘Upside potential’ shows how much could be gained in a best case."
+    )
+
 
 if __name__ == "__main__":
     main()

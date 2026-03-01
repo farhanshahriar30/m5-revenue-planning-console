@@ -14,13 +14,26 @@ def main() -> None:
         layout="wide",
     )
 
-    # Phase C: Landing page content
     st.title("M5 Revenue Planning Console")
+
     st.write(
-        "Use the pages in the sidebar to explore forecasts, drill into stores/departments, "
-        "run price scenarios, and review model health."
+        "This app turns raw retail sales data into a simple planning dashboard. "
+        "We first combined daily units sold, weekly prices, and the calendar of events to calculate revenue. "
+        "Then we forecast revenue for the next 28 days and show a realistic range (low / expected / high) instead of a single number."
     )
-    st.info("Next: Open the **Overview** page from the sidebar.")
+
+    st.write("What you can do here:")
+    st.markdown(
+        "- **Executive Overview:** See total revenue trends, recent actuals, and the next 28-day forecast.\n"
+        "- **Store Explorer:** Drill into one store’s forecast and download the numbers.\n"
+        "- **Department Explorer:** See the top departments in each store and how much they contribute.\n"
+        "- **Scenario Lab:** Move a slider to simulate price changes and compare against the baseline forecast.\n"
+        "- **Risk & Planning:** Plan using conservative vs buffered assumptions and see revenue risk and upside.\n"
+        "- **Model Health:** View basic accuracy checks to build trust in the forecasts."
+    )
+
+
+st.info("Use the sidebar to navigate through the pages.")
 
 
 if __name__ == "__main__":

@@ -133,6 +133,12 @@ def main() -> None:
     chart = (lines + hover_rule + hover_points).properties(height=360)
     st.altair_chart(chart, use_container_width=True)
 
+    st.caption(
+        "This chart shows the selected department’s expected revenue for the next 28 days. "
+        "P50 is the most likely forecast, and P10/P90 show a lower and higher range. "
+        "The ‘Dept share’ tells you how much this department contributes to the store’s total forecast."
+    )
+
     # Phase J: Table (clean date, clean index)
     st.subheader("28-day forecast table")
     table_df = d.copy()

@@ -55,6 +55,11 @@ def main() -> None:
     st.caption(
         "Next upgrade: rolling backtests + interval calibration (P10–P90 coverage)."
     )
+    st.caption(
+        "These numbers summarize how close the model’s past forecasts were to real outcomes. "
+        "Lower values mean more accurate forecasts. "
+        "This is a quick check using the most recent time period."
+    )
 
 
 if __name__ == "__main__":

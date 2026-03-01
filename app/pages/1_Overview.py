@@ -217,9 +217,11 @@ def main() -> None:
 
     st.altair_chart(chart, use_container_width=True)
 
-    # Phase I: Caption
     st.caption(
-        "Actuals show the last 90 days. Forecast bands are quantiles: P10 (conservative), P50 (expected), P90 (aggressive)."
+        "The light-blue line shows what actually happened over the last 90 days. "
+        "The colored lines show the next 28 days. "
+        "P50 is the most likely/typical forecast, P10 is a cautious low estimate, and P90 is an optimistic high estimate. "
+        "The dashed vertical line marks where the forecast begins."
     )
 
 

@@ -208,7 +208,10 @@ def main() -> None:
     st.altair_chart(chart, use_container_width=True)
 
     st.caption(
-        "Scenario is a revenue multiplier on the baseline forecast (planning projection)."
+        "This compares the normal forecast (baseline) against your price-change scenario. "
+        "A positive price change increases the projected revenue, and a negative change decreases it. "
+        "This is a simple projection: it assumes prices change, but customer demand stays the same. "
+        "The slider lets you choose the price change percentage, and the chart and totals update instantly to show the impact."
     )
 
 
