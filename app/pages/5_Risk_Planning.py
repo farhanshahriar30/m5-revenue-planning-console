@@ -56,7 +56,7 @@ def main() -> None:
     c2.metric("Total revenue at risk (P50−P10)", f"{total_risk:,.0f}")
     c3.metric("Total upside potential (P90−P50)", f"{total_upside:,.0f}")
 
-    # Phase G: Store ranking table (friendly dropdown labels)
+    # Phase G: Store ranking table
     rank_options = {
         "Planned revenue": "plan_value",
         "Revenue at risk": "revenue_at_risk",

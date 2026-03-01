@@ -197,7 +197,6 @@ def main() -> None:
     )
 
     # Phase K2: If delta is 0%, scenario overlaps baseline perfectly.
-    # To avoid confusion, hide scenario lines when price_delta == 0.
     show_scenario = price_delta != 0
 
     chart_layers = baseline_lines + hover_rule + hover_points
@@ -205,7 +204,7 @@ def main() -> None:
         chart_layers = chart_layers + scenario_lines
     chart = chart_layers.properties(height=360)
 
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
     st.caption(
         "This compares the normal forecast (baseline) against your price-change scenario. "

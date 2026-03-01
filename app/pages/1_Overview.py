@@ -4,7 +4,7 @@ from __future__ import annotations
 # - Provide an executive summary of total revenue for:
 #     1) recent actual history (last 90 days)
 #     2) next 28-day forecast with uncertainty bands (P10/P50/P90)
-# - Make the timeline readable and "executive-ready":
+# - Make the timeline readable:
 #     - clear date axis
 #     - tooltips
 #     - a cutoff marker between actuals and forecast
@@ -146,7 +146,7 @@ def main() -> None:
         )
     )
 
-    # Actual line (thicker, but included in the SAME legend)
+    # Actual line
     actual_line = (
         base.transform_filter(alt.datum.series == "Actual")
         .mark_line(strokeWidth=3)
@@ -168,10 +168,6 @@ def main() -> None:
     # Cutoff marker where forecast begins
     cutoff_df = pd.DataFrame({"date": [forecast_start]})
     cutoff_line = alt.Chart(cutoff_df).mark_rule(strokeDash=[6, 6]).encode(x="date:T")
-
-    # Phase H2: Make tooltips consistent
-    # - Altair tooltips can feel "spotty" if you must hover exactly on the line.
-    # - We add an invisible points layer + nearest selection, so hover snaps reliably.
 
     nearest = alt.selection_point(
         fields=["date", "series"],
@@ -215,7 +211,7 @@ def main() -> None:
         forecast_lines + actual_line + cutoff_line + hover_rule + hover_points
     ).properties(height=380)
 
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
     st.caption(
         "The light-blue line shows what actually happened over the last 90 days. "

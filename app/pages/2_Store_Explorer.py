@@ -40,7 +40,6 @@ def main() -> None:
     st.subheader(f"Forecast for {store_id}")
 
     # Phase E: Prepare long-form data for Altair
-    # - Altair works best with one value column + a label column for the band.
 
     plot_df = s.melt(
         id_vars=["store_id", "date"],
@@ -96,7 +95,7 @@ def main() -> None:
     )
 
     chart = (lines + hover_rule + hover_points).properties(height=360)
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
     st.caption(
         "This chart shows the expected revenue for the selected store over the next 28 days. "

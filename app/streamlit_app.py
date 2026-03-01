@@ -29,7 +29,7 @@ def main() -> None:
         "- **Department Explorer:** See the top departments in each store and how much they contribute.\n"
         "- **Scenario Lab:** Move a slider to simulate price changes and compare against the baseline forecast.\n"
         "- **Risk & Planning:** Plan using conservative vs buffered assumptions and see revenue risk and upside.\n"
-        "- **Model Health:** View basic accuracy checks to build trust in the forecasts."
+        "- **Model Health:** View basic accuracy checks to build trust in the predictions."
     )
 
 

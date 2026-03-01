@@ -131,7 +131,7 @@ def main() -> None:
     )
 
     chart = (lines + hover_rule + hover_points).properties(height=360)
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
     st.caption(
         "This chart shows the selected department’s expected revenue for the next 28 days. "
@@ -144,7 +144,6 @@ def main() -> None:
     table_df = d.copy()
     table_df["date"] = table_df["date"].dt.date
     st.dataframe(table_df, width="stretch")
-    # (Optional later: add download button like Store Explorer)
 
 
 if __name__ == "__main__":
