@@ -2,7 +2,7 @@ from __future__ import annotations
 
 # Phase A: Model Health goal
 # - Build trust by showing performance metrics and basic training metadata.
-# - This page is the "why should I believe this forecast?" layer.
+# - Keep the UI clean: show key KPIs upfront, and hide full JSON under expanders.
 
 import json
 
@@ -28,21 +28,29 @@ def main() -> None:
         settings.ARTIFACTS_DIR / "metadata" / "store_dept_train_metrics.json"
     )
 
+    # Phase C: Store-level summary
     st.subheader("Store-level model (P50 sanity check)")
     store_m = _load_json(store_metrics_path)
+
     c1, c2, c3 = st.columns(3)
     c1.metric("MAE (P50)", f"{store_m['mae_p50']:.2f}")
     c2.metric("sMAPE (P50)", f"{store_m['smape_p50']:.2f}%")
     c3.metric("Test start date", store_m["split_cutoff_date"])
-    st.json(store_m)
 
+    with st.expander("Show store model details (training metadata)"):
+        st.json(store_m)
+
+    # Phase D: Store–Dept summary
     st.subheader("Store–Dept model (Top 5 per store, P50 sanity check)")
     dept_m = _load_json(dept_metrics_path)
+
     c4, c5, c6 = st.columns(3)
     c4.metric("MAE (P50)", f"{dept_m['mae_p50']:.2f}")
     c5.metric("sMAPE (P50)", f"{dept_m['smape_p50']:.2f}%")
     c6.metric("Test start date", dept_m["split_cutoff_date"])
-    st.json(dept_m)
+
+    with st.expander("Show store–dept model details (training metadata)"):
+        st.json(dept_m)
 
     st.caption(
         "Next upgrade: rolling backtests + interval calibration (P10–P90 coverage)."

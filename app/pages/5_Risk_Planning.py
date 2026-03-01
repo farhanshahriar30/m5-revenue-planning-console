@@ -56,10 +56,16 @@ def main() -> None:
     c2.metric("Total revenue at risk (P50−P10)", f"{total_risk:,.0f}")
     c3.metric("Total upside potential (P90−P50)", f"{total_upside:,.0f}")
 
-    # Phase G: Store ranking table
-    sort_by = st.selectbox(
-        "Rank stores by", ["plan_value", "revenue_at_risk", "upside_potential"]
-    )
+    # Phase G: Store ranking table (friendly dropdown labels)
+    rank_options = {
+        "Planned revenue": "plan_value",
+        "Revenue at risk": "revenue_at_risk",
+        "Upside potential": "upside_potential",
+    }
+
+    rank_label = st.selectbox("Rank stores by", list(rank_options.keys()))
+    sort_by = rank_options[rank_label]
+
     view = totals.sort_values(sort_by, ascending=False).reset_index(drop=True)
 
     st.subheader("Store planning table (28-day totals)")

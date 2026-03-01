@@ -196,9 +196,14 @@ def main() -> None:
         .transform_filter(nearest)
     )
 
-    chart = (baseline_lines + scenario_lines + hover_rule + hover_points).properties(
-        height=360
-    )
+    # Phase K2: If delta is 0%, scenario overlaps baseline perfectly.
+    # To avoid confusion, hide scenario lines when price_delta == 0.
+    show_scenario = price_delta != 0
+
+    chart_layers = baseline_lines + hover_rule + hover_points
+    if show_scenario:
+        chart_layers = chart_layers + scenario_lines
+    chart = chart_layers.properties(height=360)
 
     st.altair_chart(chart, use_container_width=True)
 
